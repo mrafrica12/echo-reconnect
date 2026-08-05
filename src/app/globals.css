@@ -1,0 +1,312 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #0b1220; /* headline / near-black, navy-tinted */
+  --paper: #f4f6f9; /* cool light page field */
+  --ash: #41597c; /* slate-blue body copy */
+  --accent: #12345f; /* brand navy — buttons, links, hovers */
+  --accent-strong: #0a2143; /* pressed / hover navy */
+  --flare: #f2801e; /* orange highlight — fills and bars, never text */
+  /* Text-safe orange. --flare only reaches 2.66:1 on white, which fails AA
+     even at the large-text threshold, so any orange *wording* uses this. */
+  --flare-ink: #b45309;
+  --line: #e0e6ee;
+  --surface: #ffffff; /* elevated card / alternating band */
+  --halo: #eaf1fb; /* pale blue behind icon glyphs */
+
+  /* EchoIcons pillar badge colors */
+  --er-blue: #1b4da1; /* AI Reception */
+  --er-navy: #0f2350; /* Business Automation */
+  --er-slate: #5d6e85; /* Growth Services */
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-ash: var(--ash);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-flare: var(--flare);
+  --color-flare-ink: var(--flare-ink);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+  --color-halo: var(--halo);
+
+  --font-display: var(--font-general-sans);
+  --font-body: var(--font-inter);
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.font-display {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.container-copy {
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+.container-content {
+  max-width: 70rem;
+  margin-inline: auto;
+}
+
+.container-wide {
+  max-width: 82.5rem;
+  margin-inline: auto;
+}
+
+/* ---------------------------------------------------------------
+   Shared surface + control language (see the hero on the homepage)
+   --------------------------------------------------------------- */
+
+/* Small navy all-caps kicker that sits above every section heading. */
+.eyebrow {
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Filled navy pill — the single primary action on any given view. */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.9rem 1.75rem;
+  font-size: 1rem;
+  line-height: 1.2;
+  transition: background-color 0.2s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow: 0 12px 28px -14px rgba(11, 34, 68, 0.65);
+}
+
+.btn-primary:hover {
+  background: var(--accent-strong);
+  transform: translateY(-1px);
+}
+
+/* Underlined text action paired with the circular arrow chip. */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--accent);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.55rem;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-ghost:hover {
+  color: var(--accent-strong);
+  border-color: var(--accent);
+}
+
+.btn-ghost .chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.btn-ghost:hover .chip {
+  transform: translateX(3px);
+}
+
+/* White card lifted off the page field. */
+.card-elevated {
+  background: var(--surface);
+  border-radius: 28px;
+  box-shadow: 0 30px 70px -34px rgba(11, 34, 68, 0.35),
+    0 2px 6px -2px rgba(11, 34, 68, 0.08);
+}
+
+/* Pale blue disc behind a navy glyph. */
+.icon-halo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--halo);
+  color: var(--er-blue);
+  flex-shrink: 0;
+  box-shadow: inset 0 0 0 1px rgba(27, 77, 161, 0.08);
+}
+
+/* Full-bleed navy band for the dark sections — a deep gradient rather
+   than flat black, so it stays in the same family as the buttons. */
+.band-navy {
+  background: linear-gradient(135deg, #081a33 0%, #12345f 55%, #1c4a80 100%);
+  color: #fff;
+}
+
+/* The hero photograph: flush to the top and right, with a chevron cut on
+   the left so the type column reads into the image. The notch is what
+   buys the second call-to-action its horizontal room — it sits just
+   below the apex, where the edge has already swung back to the right.
+   Below lg the image stacks under the type and keeps a plain top radius. */
+@media (min-width: 1024px) {
+  .hero-clip {
+    clip-path: polygon(24% 0, 100% 0, 100% 100%, 33% 100%, 0 64%);
+    border-radius: 0;
+  }
+}
+
+/* Range control: orange up to the thumb, navy beyond it. The filled
+   portion is painted by an inline gradient set from the current value,
+   so both engines get the same look from one declaration. */
+input[type="range"].range-brand {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--accent);
+  cursor: pointer;
+}
+
+input[type="range"].range-brand::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 999px;
+  background: transparent;
+}
+
+input[type="range"].range-brand::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: -6px;
+  border-radius: 50%;
+  background: var(--flare);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px -1px rgba(11, 34, 68, 0.45);
+}
+
+input[type="range"].range-brand::-moz-range-track {
+  height: 8px;
+  border-radius: 999px;
+  background: transparent;
+}
+
+input[type="range"].range-brand::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--flare);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px -1px rgba(11, 34, 68, 0.45);
+}
+
+/* Hero channel pins.
+   The three markers over the photograph pulse in turn — call, then text,
+   then booking — so the image reads as a live flow instead of a still. Each
+   carries its own colour via --pin and its turn via --pin-delay.
+   Purely decorative: the glyphs are aria-hidden inside a pointer-events-none
+   layer, so nothing is lost when the animation is suppressed. */
+.hero-pin {
+  border-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--pin, #fff);
+  animation: hero-pin-flash 4.8s ease-in-out infinite;
+  animation-delay: var(--pin-delay, 0s);
+}
+
+@keyframes hero-pin-flash {
+  0%,
+  24%,
+  100% {
+    border-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    transform: scale(1);
+  }
+  9% {
+    border-color: var(--pin);
+    background-color: color-mix(in srgb, var(--pin) 24%, transparent);
+    box-shadow: 0 0 28px 3px color-mix(in srgb, var(--pin) 60%, transparent);
+    transform: scale(1.09);
+  }
+}
+
+/* The dotted leader drops the same colour a beat after its pin. */
+.hero-pin-line {
+  animation: hero-pin-line 4.8s ease-in-out infinite;
+  animation-delay: var(--pin-delay, 0s);
+}
+
+@keyframes hero-pin-line {
+  0%,
+  30%,
+  100% {
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+  12% {
+    border-color: var(--pin);
+  }
+}
+
+/* Scroll reveal. The server always emits data-reveal="shown", so this only
+   ever hides content once JavaScript has decided it is below the fold —
+   see components/Reveal.tsx. */
+[data-reveal] {
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-reveal="hidden"] {
+  opacity: 0;
+  transform: translateY(1.25rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
